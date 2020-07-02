@@ -8,7 +8,7 @@ function EventList(props){
   return (
     <React.Fragment>
       <hr/>
-      {masterEventList.map((event, index) =>
+      {masterEventList.map((event) =>
         <Event 
           whenEventClicked = { props.onEventSelection }
           title={event.title}
@@ -16,7 +16,7 @@ function EventList(props){
           description={event.description}
           occurrences={event.occurrences}
           id={event.id}
-          key={index}
+          key={event.id}
           />
       )}
   </React.Fragment>

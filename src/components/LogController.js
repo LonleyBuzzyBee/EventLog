@@ -2,6 +2,7 @@ import React from 'react';
 import EventList from "./EventList";
 import NewEventForm from "./NewEventForm";
 import EventDetail from "./EventDetail";
+import EditEventForm from './EditEventForm';
 
 
 class LogController extends React.Component
@@ -12,8 +13,24 @@ class LogController extends React.Component
     this.state = {
       formVisibleOnPage: false,
       masterEventList: [],
-      selectedEvent: null
+      selectedEvent: null,
+      editing: false
     };
+  }
+
+  handleEditClick = () => {
+    this.setState({editing: true});
+  }
+
+  handleEditingEventInList = (editedEvent) => {
+    const editedMasterEventList = this.state.masterEventList
+          .filter(event => event.id !== this.state.selectedEvent.id)
+          .concat(editedEvent);
+    this.setState({
+      masterEventList: editedMasterEventList,
+      editing: false,
+      selectedEvent: null
+    });
   }
 
   handleChangingSelectedEvent = (id) => {
@@ -26,11 +43,17 @@ class LogController extends React.Component
     this.setState({ masterEventList: newMasterEventList, formVisibleOnPage: false });
   }
 
+  handleDeletingEvent = (id) => {
+    const newMasterEventList = this.state.masterEventList.filter(event => event.id !== id);
+    this.setState({masterEventList: newMasterEventList, selectedEvent: null});
+  }
+
   ToggleForm = () => {
     if (this.state.selectedEvent != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedEvent: null
+        selectedEvent: null,
+        editing: false
       });
     } else {
       this.setState(prevState => ({
@@ -40,12 +63,18 @@ class LogController extends React.Component
   }
 
   render() {
-    
-
-    if (this.state.selectedEvent != null){
+    if (this.state.editing){
       return(
         <React.Fragment>
-          <EventDetail event={this.state.selectedEvent} />
+        <EditEventForm event = {this.state.selectedEvent} onEditEvent={this.handleEditingEventInList}/>
+        <button onClick={this.ToggleForm}>Return to Event List</button>
+      </React.Fragment>
+      )
+    }
+    else if (this.state.selectedEvent != null){
+      return(
+        <React.Fragment>
+          <EventDetail event={this.state.selectedEvent} onClickingDelete={this.handleDeletingEvent} onClickingEdit={this.handleEditClick} />
           <button onClick={this.ToggleForm}>Return to Event List</button>
         </React.Fragment>
       )

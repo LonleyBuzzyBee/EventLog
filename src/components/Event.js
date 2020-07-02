@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 
 function Event(props){
-  console.log(props.id);
   
   return (
     <React.Fragment>
