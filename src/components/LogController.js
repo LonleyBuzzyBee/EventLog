@@ -1,6 +1,7 @@
 import React from 'react';
 import EventList from "./EventList";
 import NewEventForm from "./NewEventForm";
+import EventDetail from "./EventDetail";
 
 
 class LogController extends React.Component
@@ -9,29 +10,48 @@ class LogController extends React.Component
   {
     super(props);
     this.state = {
-      formVisibleOnPage : false,
-      masterEventList : []
-    }
+      formVisibleOnPage: false,
+      masterEventList: [],
+      selectedEvent: null
+    };
   }
-                                //newEvent = {id, descript, title, views, location}
+
+  handleChangingSelectedEvent = (id) => {
+    const selectedEvent = this.state.masterEventList.filter(event => event.id === id)[0];
+    console.log(id);
+    this.setState({selectedEvent: selectedEvent});
+  }
+     //newEvent = {id, descript, title, views, location}
   handleAddingNewEventToList = (newEvent) => {
     const newMasterEventList = this.state.masterEventList.concat(newEvent);
     this.setState({ masterEventList: newMasterEventList, formVisibleOnPage: false });
   }
 
   ToggleForm = () => {
-    if(this.state.formVisibleOnPage)
-    {
-      this.setState({ formVisibleOnPage: false });
-    }
-    else
-    {
-      this.setState({ formVisibleOnPage: true });
+    if (this.state.selectedEvent != null) {
+      this.setState({
+        formVisibleOnPage: false,
+        selectedEvent: null
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisibleOnPage: !prevState.formVisibleOnPage,
+      }));
     }
   }
 
-  render(){
-    if(this.state.formVisibleOnPage)
+  render() {
+    
+
+    if (this.state.selectedEvent != null){
+      return(
+        <React.Fragment>
+          <EventDetail event={this.state.selectedEvent} />
+          <button onClick={this.ToggleForm}>Return to Event List</button>
+        </React.Fragment>
+      )
+    }
+    else if(this.state.formVisibleOnPage)
       {
       return(
         <React.Fragment>
@@ -40,10 +60,10 @@ class LogController extends React.Component
         </React.Fragment>
         )
       }
-    else {
+    else{
       return(  
         <React.Fragment>
-          <EventList masterEventList={this.state.masterEventList}/>
+          <EventList masterEventList={this.state.masterEventList} onEventSelection={this.handleChangingSelectedEvent}/>
           <button onClick={this.ToggleForm}>New Event</button>          
         </React.Fragment>
       )

@@ -6,11 +6,13 @@ function Event(props){
   
   return (
     <React.Fragment>
-      <h3>{props.title}</h3>
-      <p>Location: <em>{props.location}</em></p>
-      <p>Description: <em>{props.description}</em></p>    
-      <p>Viewings: {props.occurrences}</p> 
-      <hr/>
+      <div onClick={() => props.whenEventClicked(props.id)}>
+        <h3>{props.title}</h3>
+        <p>Location: <em>{props.location}</em></p>
+        <p>Description: <em>{props.description}</em></p>    
+        <p>Viewings: {props.occurrences}</p> 
+        <hr />
+      </div>
     </React.Fragment>
   );
 }
@@ -22,6 +24,9 @@ Event.propTypes = {
   location: PropTypes.string,
   description: PropTypes.string,
   occurrences: PropTypes.number,
+  id: PropTypes.string,
+  whenEventClicked: PropTypes.func
 };
 
 export default Event;
+

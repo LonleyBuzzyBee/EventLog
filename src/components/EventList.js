@@ -3,16 +3,15 @@ import Event from './Event';
 import PropTypes from "prop-types";
 
 
-
-
-
 function EventList(props){
   let masterEventList = props.masterEventList;
   return (
     <React.Fragment>
       <hr/>
       {masterEventList.map((event, index) =>
-        <Event title={event.title}
+        <Event 
+          whenEventClicked = { props.onEventSelection }
+          title={event.title}
           location={event.location}
           description={event.description}
           occurrences={event.occurrences}
@@ -24,7 +23,8 @@ function EventList(props){
 }
 
 EventList.propTypes = {
-  eventList: PropTypes.array
+  eventList: PropTypes.array,
+  onEventSelection: PropTypes.func
 };
 
 export default EventList;
