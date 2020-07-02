@@ -9,7 +9,7 @@ function EventDetail(props) {
       <h3>Title: {event.title}</h3>
       <h3>Location: {event.location}</h3>
       <h3>Description: {event.description}</h3>
-      <h3>Views:{event.occurances}</h3>
+      <h3>Views:{event.occurrences}</h3>
       <hr />
     </React.Fragment>
   );

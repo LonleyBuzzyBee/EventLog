@@ -18,7 +18,6 @@ class LogController extends React.Component
 
   handleChangingSelectedEvent = (id) => {
     const selectedEvent = this.state.masterEventList.filter(event => event.id === id)[0];
-    console.log(id);
     this.setState({selectedEvent: selectedEvent});
   }
      //newEvent = {id, descript, title, views, location}

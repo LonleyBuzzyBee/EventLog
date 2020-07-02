@@ -15,6 +15,7 @@ function EventList(props){
           location={event.location}
           description={event.description}
           occurrences={event.occurrences}
+          id={event.id}
           key={index}
           />
       )}
