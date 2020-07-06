@@ -3,6 +3,7 @@ import EventList from "./EventList";
 import NewEventForm from "./NewEventForm";
 import EventDetail from "./EventDetail";
 import EditEventForm from './EditEventForm';
+import { connect } from 'react-redux';
 
 
 class LogController extends React.Component
@@ -113,6 +114,8 @@ class LogController extends React.Component
     }
   }
 }
+LogController = connect()(LogController);
+
 
 export default LogController;
 
