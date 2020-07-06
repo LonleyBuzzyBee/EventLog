@@ -37,11 +37,26 @@ class LogController extends React.Component
     const selectedEvent = this.state.masterEventList.filter(event => event.id === id)[0];
     this.setState({selectedEvent: selectedEvent});
   }
-     //newEvent = {id, descript, title, views, location}
+    //  newEvent = {id, descript, title, views, location}
   handleAddingNewEventToList = (newEvent) => {
     const newMasterEventList = this.state.masterEventList.concat(newEvent);
     this.setState({ masterEventList: newMasterEventList, formVisibleOnPage: false });
   }
+
+  // handleAddingNewEventToList = (newEvent) => {
+  //   const { dispatch } = this.props;
+  //   const { title, location, description, occurrences, id } = newEvent;
+  //   const action = {
+  //     type: 'ADD_EVENT',
+  //     title: title,
+  //     location: location,
+  //     description: description,
+  //     occurrences: occurrences,
+  //     id: id
+  //   }
+  //   dispatch(action);
+  //   this.setState({formVisibleOnPage: false});
+  // }
 
   handleDeletingEvent = (id) => {
     const newMasterEventList = this.state.masterEventList.filter(event => event.id !== id);

@@ -1,4 +1,5 @@
 import eventLoggerReducer from '../../reducers/eventlogger-reducer';
+import eventListReducer from '../../reducers/eventlist-reducer';
 
 describe('eventLoggerReducer', () => {
   let action;
